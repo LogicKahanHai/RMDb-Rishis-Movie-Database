@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Welcome to RMDb";
+}
+
+<div class="text-center">
+    <h3 class="display-5">Welcome to RMDb: Rishi's Movie Database</h3>
+
+    <h2>Login</h2>
+
+    <div id="errorDiv" style="color: red; font-weight: bold;">
+        @if (!string.IsNullOrEmpty(ViewData["Error"] as string))
+        {
+            <p>@ViewData["Error"]</p>
+        }
+    </div>
+
+    <form action="/Home/Login" method="post" onsubmit="return validateForm()">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+
+    <script>
+    window.onload = function() {
+            var error = '@ViewData["Error"]';
+            if (error.trim() !== '') {
+                alert(error);
+                // Clear the error message after displaying
+                '@ViewData["Error"]' = '';
+            }
+        };
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username == "" || password == "") {
+                alert("Please enter both username and password.");
+                return false;
+            }
+        }</script>
+}
